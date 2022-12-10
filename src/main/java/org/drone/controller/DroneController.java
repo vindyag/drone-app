@@ -2,12 +2,14 @@ package org.drone.controller;
 
 import org.drone.dto.DroneAction;
 import org.drone.dto.DroneActionRequestDTO;
-import org.drone.dto.DroneRegistrationRequestDTO;
+import org.drone.dto.DroneDTO;
 import org.drone.model.Drone;
 import org.drone.service.DroneService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.validation.Valid;
@@ -15,16 +17,25 @@ import lombok.RequiredArgsConstructor;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "api/v1/drones", produces = {APPLICATION_JSON_VALUE})
 public class DroneController {
-    private final DroneService droneService;
+    @Autowired
+    private DroneService droneService;
 
     @PostMapping
-    public ResponseEntity<?> registerDrone(@Valid @RequestBody DroneRegistrationRequestDTO request) {
-        droneService.registerDrone(request);
+    public ResponseEntity<?> registerDrone(@Valid @RequestBody DroneDTO droneDTO) {
+        droneService.registerDrone(droneDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<?> loadDronesByCriteria(@Valid @RequestParam Boolean availableForLoading ){
+        List<Drone> drones = droneService.loadDrones(availableForLoading);
+        if(!drones.isEmpty()){
+            return ResponseEntity.ok(drones);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")

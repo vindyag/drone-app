@@ -12,7 +12,7 @@ public class Medication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer weight;
-    private String name;
+    private String medicine;
     private String code;
     private String image;
 }
