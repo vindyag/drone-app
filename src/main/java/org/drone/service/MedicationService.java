@@ -24,7 +24,19 @@ public class MedicationService {
             medicationDTO.setCode(medication.getCode());
             medicationDTO.setImage(medication.getImage());
             medicationDTO.setMedicineName(medication.getMedicine());
+            medicationDTO.setWeight(medication.getWeight());
+            medicationDTOS.add(medicationDTO);
         }
         return medicationDTOS;
+    }
+
+    public Long registerMedication(MedicationDTO medicationDTO) {
+        Medication medication = new Medication();
+        medication.setCode(medicationDTO.getCode());
+        medication.setImage(medicationDTO.getImage());
+        medication.setMedicine(medicationDTO.getMedicineName());
+        medication.setWeight(medicationDTO.getWeight());
+        Medication createdMedication = medicationRepository.save(medication);
+        return createdMedication.getId();
     }
 }

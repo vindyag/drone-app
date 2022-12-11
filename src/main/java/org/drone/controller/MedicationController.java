@@ -5,10 +5,16 @@ import org.drone.service.MedicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import jakarta.validation.Valid;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -18,6 +24,14 @@ public class MedicationController {
 
     @Autowired
     private MedicationService medicationService;
+
+    @PostMapping
+    public ResponseEntity<?> registerMedication(@Valid @RequestBody MedicationDTO medicationDTO) {
+        Long createdMedicationId = medicationService.registerMedication(medicationDTO);
+        Map<String,Long> response = new HashMap<>();
+        response.put("medicationId", createdMedicationId);
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping
     public ResponseEntity<?> loadAllMedication(){

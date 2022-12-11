@@ -5,6 +5,7 @@ import org.drone.dto.DroneActionRequestDTO;
 import org.drone.dto.DroneBatteryCapacityDTO;
 import org.drone.dto.DroneDTO;
 import org.drone.model.Drone;
+import org.drone.model.DroneMedication;
 import org.drone.model.DroneState;
 import org.drone.repository.DroneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,19 +76,22 @@ public class DroneService {
         return droneDTOS;
     }
 
-    public void performDroneAction(DroneAction action, DroneActionRequestDTO request) {
+    public void performDroneAction(Long droneId,DroneAction action, DroneActionRequestDTO request) {
         switch (action) {
-            case LOAD -> loadDroneWithMedication(request);
-            case UPDATE_STATUS -> updateDroneStatus(request);
+            case LOAD -> loadDroneWithMedication(droneId, request.getMedicationIdToLoad());
+            case UPDATE -> updateDroneStatus(droneId, request.getUpdatedDroneState());
         }
     }
 
-    private void loadDroneWithMedication(DroneActionRequestDTO request) {
-
+    private void loadDroneWithMedication(Long droneId, Long medicationId) {
+        DroneMedication droneMedication = new DroneMedication();
+        droneMedication.setDroneId(droneId);
+        droneMedication.setMedicationId(medicationId);
     }
 
-    private void updateDroneStatus(DroneActionRequestDTO request) {
-
+    private void updateDroneStatus(Long droneId, DroneState newDroneState) {
+        Optional<Drone> droneOpt = droneRepository.findById(droneId);
+        droneOpt.ifPresent(drone -> drone.setState(newDroneState));
     }
 
     private void retrieveLoadedMedicationOnDrone(DroneActionRequestDTO request) {

@@ -31,15 +31,15 @@ public class DroneController {
     @PostMapping
     public ResponseEntity<?> registerDrone(@Valid @RequestBody DroneDTO droneDTO) {
         Long createdDroneId = droneService.registerDrone(droneDTO);
-        Map<String,Long> response = new HashMap<>();
+        Map<String, Long> response = new HashMap<>();
         response.put("droneId", createdDroneId);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    public ResponseEntity<?> loadDronesByCriteria(@Valid @RequestParam Boolean availableForLoading ){
+    public ResponseEntity<?> loadDronesByCriteria(@Valid @RequestParam Boolean availableForLoading) {
         List<DroneDTO> drones = droneService.loadDrones(availableForLoading);
-        if(!drones.isEmpty()){
+        if (!drones.isEmpty()) {
             return ResponseEntity.ok(drones);
         }
         return ResponseEntity.noContent().build();
@@ -48,16 +48,18 @@ public class DroneController {
     @GetMapping("/{id}")
     public ResponseEntity<?> loadDroneById(@Valid @PathVariable Long id) {
         Optional<Drone> drone = droneService.loadDrone(id);
-        if(drone.isPresent()){
+        if (drone.isPresent()) {
             return ResponseEntity.ok(drone);
         }
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<?> performDroneAction(
-        @RequestParam("action") DroneAction action, @Valid @RequestBody DroneActionRequestDTO request) {
-        droneService.performDroneAction(action, request);
+        @Valid @PathVariable Long id,
+        @RequestParam("action") DroneAction action,
+        @Valid @RequestBody DroneActionRequestDTO request) {
+        droneService.performDroneAction(id, action, request);
         return ResponseEntity.ok().build();
     }
 
