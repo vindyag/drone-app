@@ -10,11 +10,10 @@ import lombok.Data;
 
 @Data
 public class DroneDTO {
-    @NotNull
+
     private DroneModel model;
-    @NotNull
     private Integer weightLimit;
     private DroneBatteryCapacityDTO batteryCapacity;
     private DroneState state;
-    private List<MedicationDTO> loadedMedications;
+    private List<MedicationDTO> medications;
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import org.drone.dto.DroneAction;
 import org.drone.dto.DroneActionRequestDTO;
+import org.drone.dto.DroneBatteryCapacityDTO;
 import org.drone.dto.DroneDTO;
+import org.drone.dto.MedicationDTO;
 import org.drone.model.Drone;
 import org.drone.service.DroneService;
 import org.h2.util.json.JSONObject;
@@ -47,9 +49,27 @@ public class DroneController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> loadDroneById(@Valid @PathVariable Long id) {
-        Optional<Drone> drone = droneService.loadDrone(id);
-        if (drone.isPresent()) {
-            return ResponseEntity.ok(drone);
+        DroneDTO droneDTO = droneService.loadDrone(id);
+        if (droneDTO != null) {
+            return ResponseEntity.ok(droneDTO);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/battery-capacity")
+    public ResponseEntity<?> getDroneBatteryCapacity(@Valid @PathVariable Long id) {
+        DroneBatteryCapacityDTO droneBatteryCapacityDTO = droneService.getDroneBatteryCapacity(id);
+        if (droneBatteryCapacityDTO != null) {
+            return ResponseEntity.ok(droneBatteryCapacityDTO);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/medications")
+    public ResponseEntity<?> getMedicationLoadedToDrone(@Valid @PathVariable Long id) {
+        List<MedicationDTO> medicationDTOs = droneService.getMedicationLoadedToDrone(id);
+        if (medicationDTOs != null) {
+            return ResponseEntity.ok(medicationDTOs);
         }
         return ResponseEntity.noContent().build();
     }
@@ -58,9 +78,12 @@ public class DroneController {
     public ResponseEntity<?> performDroneAction(
         @Valid @PathVariable Long id,
         @RequestParam("action") DroneAction action,
-        @Valid @RequestBody DroneActionRequestDTO request) {
-        droneService.performDroneAction(id, action, request);
-        return ResponseEntity.ok().build();
+        @Valid @RequestBody DroneDTO droneDTO) {
+        boolean success = droneService.performDroneAction(id, action, droneDTO);
+        if(success){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
 }

@@ -1,5 +1,6 @@
 package org.drone.service;
 
+import org.drone.dto.DroneDTO;
 import org.drone.dto.MedicationDTO;
 import org.drone.model.Drone;
 import org.drone.model.DroneState;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicationService {
@@ -20,12 +22,7 @@ public class MedicationService {
         Iterable<Medication> medications = medicationRepository.findAll();
         List<MedicationDTO> medicationDTOS = new ArrayList<>();
         for(Medication medication: medications){
-            MedicationDTO medicationDTO = new MedicationDTO();
-            medicationDTO.setCode(medication.getCode());
-            medicationDTO.setImage(medication.getImage());
-            medicationDTO.setMedicineName(medication.getMedicine());
-            medicationDTO.setWeight(medication.getWeight());
-            medicationDTOS.add(medicationDTO);
+            medicationDTOS.add(getMedicationDTOFromMedication(medication));
         }
         return medicationDTOS;
     }
@@ -38,5 +35,22 @@ public class MedicationService {
         medication.setWeight(medicationDTO.getWeight());
         Medication createdMedication = medicationRepository.save(medication);
         return createdMedication.getId();
+    }
+
+    public MedicationDTO getMedicationById(Long medicationId) {
+        Optional<Medication> medicationOptional = medicationRepository.findById(medicationId);
+        if(medicationOptional.isPresent()){
+            return getMedicationDTOFromMedication(medicationOptional.get());
+        }
+        return null;
+    }
+
+    private MedicationDTO getMedicationDTOFromMedication(Medication medication) {
+        MedicationDTO medicationDTO = new MedicationDTO();
+        medicationDTO.setCode(medication.getCode());
+        medicationDTO.setImage(medication.getImage());
+        medicationDTO.setMedicineName(medication.getMedicine());
+        medicationDTO.setWeight(medication.getWeight());
+        return medicationDTO;
     }
 }
