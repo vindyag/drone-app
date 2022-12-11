@@ -8,13 +8,10 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Medication {
-
+public class DroneMedication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer weight;
-    private String medicine;
-    private String code;
-    private String image;
+    private Long droneId;
+    private Long medicationId;
 }

@@ -1,19 +1,19 @@
 package org.drone.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 @Entity
+@Data
 public class Drone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(length = 100, unique = true)
-    private Long serialNumber;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "serial_no_seq")
+    @SequenceGenerator(name = "serial_no_seq", sequenceName = "serial_no_seq", allocationSize = 1)
+    private String serialNumber;
 
     @Enumerated(EnumType.STRING)
     private DroneModel model;
@@ -21,8 +21,6 @@ public class Drone {
     @Column(length = 500)
     private Integer weightLimit;
 
-    @Min(1)
-    @Max(100)
     @Column(length = 100)
     private Double batteryCapacity;
 
