@@ -94,10 +94,6 @@ public class DroneService {
 
     }
 
-    private void retrieveAvailableDrones(DroneActionRequestDTO request) {
-
-    }
-
     private void retrieveBatteryLevelOfDrone(DroneActionRequestDTO request) {
 
     }
