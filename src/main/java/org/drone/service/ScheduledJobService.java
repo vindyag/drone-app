@@ -26,10 +26,10 @@ public class ScheduledJobService {
 
         Iterable<Drone> drones = droneRepository.findAll();
         List<DroneBatteryCapacityAudit> droneBatteryCapacityAudits = new ArrayList<>();
-        for (Drone droneId: drones){
+        for (Drone drone: drones){
             DroneBatteryCapacityAudit droneBatteryCapacityAudit = new DroneBatteryCapacityAudit();
-            droneBatteryCapacityAudit.setDroneId(droneId.getId());
-            droneBatteryCapacityAudit.setBatteryCapacity(droneId.getBatteryCapacity());
+            droneBatteryCapacityAudit.setDroneId(drone.getId());
+            droneBatteryCapacityAudit.setBatteryCapacity(drone.getBatteryCapacity());
             droneBatteryCapacityAudit.setDateTime(LocalDateTime.now());
             droneBatteryCapacityAudits.add(droneBatteryCapacityAudit);
         }
