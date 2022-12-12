@@ -23,9 +23,6 @@ dependencies {
     implementation group: 'com.h2database', name: 'h2',  version: '2.1.214'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 
-    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 
