@@ -1,6 +1,7 @@
 package org.drone.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -15,9 +16,11 @@ public class Drone {
     @SequenceGenerator(name = "serial_no_seq", sequenceName = "serial_no_seq", allocationSize = 1)
     private String serialNumber;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private DroneModel model;
 
+    @NotNull
     @Column(length = 500)
     private Integer weightLimit;
 

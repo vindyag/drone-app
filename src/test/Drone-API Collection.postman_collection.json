@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "ba173493-3dc5-47ff-801c-8be84ef3d365",
+		"name": "Drone-API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4752061"
+	},
+	"item": [
+		{
+			"name": "Create Medication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"MED_01\",\n    \"image\": \"Medicine_type_01.png\",\n    \"medicine\": \"Medicine_name_01\",\n    \"weight\": 25\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/medications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"medications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Medications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/medications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"medications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Drone",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"model\": \"LIGHT_WEIGHT\",\n    \"weightLimit\": 25\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Drone By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Available Drones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones?availableForLoading=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones"
+					],
+					"query": [
+						{
+							"key": "availableForLoading",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Load Drone with Medication",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"medications\": [\n        {\n            \"medicationId\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones/1?action=LOAD",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones",
+						"1"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "LOAD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Drone Battery Capacity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones/1/battery-capacity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones",
+						"1",
+						"battery-capacity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Medication Loaded to Drone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones/1/medications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones",
+						"1",
+						"medications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Drone Status",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"state\": \"LOADING\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones/1?action=UPDATE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones",
+						"1"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "UPDATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Drone Battery Capacity Audit Entries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drone-battery-capacity-audits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drone-battery-capacity-audits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Battery Capacity",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"batteryCapacity\": {\n        \"batteryCapacity\": 50\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/drones/1?action=UPDATE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"drones",
+						"1"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "UPDATE"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
