@@ -1,14 +1,12 @@
 package org.drone.service;
 
 import org.drone.dto.DroneAction;
-import org.drone.dto.DroneActionRequestDTO;
 import org.drone.dto.DroneBatteryCapacityDTO;
 import org.drone.dto.DroneDTO;
 import org.drone.dto.MedicationDTO;
 import org.drone.model.Drone;
 import org.drone.model.DroneMedication;
 import org.drone.model.DroneState;
-import org.drone.model.Medication;
 import org.drone.repository.DroneMedicationRepository;
 import org.drone.repository.DroneRepository;
 import org.drone.validator.DroneMedicationValidator;
@@ -29,10 +27,8 @@ public class DroneService {
     private DroneMedicationRepository droneMedicationRepository;
     @Autowired
     private MedicationService medicationService;
-
     @Autowired
     private DroneMedicationValidator droneMedicationValidator;
-
 
     public Long registerDrone(DroneDTO droneDTO) {
         Drone drone = new Drone();
@@ -113,7 +109,7 @@ public class DroneService {
                 return loadDroneWithMedication(droneId, droneDTO.getMedications());
             }
             case UPDATE -> {
-                return updateDroneStatus(droneId, droneDTO.getState());
+                return updateDrone(droneId, droneDTO);
             }
         }
         return false;
@@ -136,11 +132,14 @@ public class DroneService {
         return false;
     }
 
-    private boolean updateDroneStatus(Long droneId, DroneState newDroneState) {
+    private boolean updateDrone(Long droneId, DroneDTO droneDTO) {
         Optional<Drone> droneOpt = droneRepository.findById(droneId);
         if (droneOpt.isPresent()) {
             Drone drone = droneOpt.get();
-            drone.setState(newDroneState);
+            drone.setState(droneDTO.getState());
+            if (droneDTO.getBatteryCapacity() != null) {
+                drone.setBatteryCapacity(droneDTO.getBatteryCapacity().getBatteryCapacity());
+            }
             droneRepository.save(drone);
             return true;
         }

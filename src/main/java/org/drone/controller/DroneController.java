@@ -1,15 +1,10 @@
 package org.drone.controller;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
 import org.drone.dto.DroneAction;
-import org.drone.dto.DroneActionRequestDTO;
 import org.drone.dto.DroneBatteryCapacityDTO;
 import org.drone.dto.DroneDTO;
 import org.drone.dto.MedicationDTO;
-import org.drone.model.Drone;
 import org.drone.service.DroneService;
-import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

@@ -35,9 +35,9 @@ public class MedicationController {
 
     @GetMapping
     public ResponseEntity<?> loadAllMedication(){
-        List<MedicationDTO> medicationDTOS = medicationService.loadMedications();
-        if(!medicationDTOS.isEmpty()){
-            return ResponseEntity.ok(medicationDTOS);
+        List<MedicationDTO> medicationDTOs = medicationService.loadMedications();
+        if(!medicationDTOs.isEmpty()){
+            return ResponseEntity.ok(medicationDTOs);
         }
         return ResponseEntity.noContent().build();
     }
