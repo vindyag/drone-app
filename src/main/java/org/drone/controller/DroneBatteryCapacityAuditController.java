@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@Tag(name = "DroneBatteryCapacityAudit API")
 @RestController
 @RequestMapping(value = "api/v1/drone-battery-capacity-audits", produces = {APPLICATION_JSON_VALUE})
 public class DroneBatteryCapacityAuditController {
@@ -19,6 +23,8 @@ public class DroneBatteryCapacityAuditController {
     @Autowired
     private DroneBatteryCapacityAuditService droneBatteryCapacityAuditService;
 
+    @Operation(
+        summary = "Get all Drone Battery Capacity Audit Records")
     @GetMapping
     public ResponseEntity<?> loadAllDroneBatteryCapacityAuditEntries(){
         List<DroneBatteryCapacityDTO> droneBatteryCapacityDTOs = droneBatteryCapacityAuditService.loadDroneBatteryCapacityAuditEntries();

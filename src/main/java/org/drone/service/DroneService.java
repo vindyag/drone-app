@@ -9,7 +9,7 @@ import org.drone.model.DroneMedication;
 import org.drone.model.DroneState;
 import org.drone.repository.DroneMedicationRepository;
 import org.drone.repository.DroneRepository;
-import org.drone.validator.DroneMedicationValidator;
+import org.drone.validation.DroneMedicationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

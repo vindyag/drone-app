@@ -1,8 +1,7 @@
-package org.drone.validator;
+package org.drone.validation;
 
 import org.drone.model.Drone;
 import org.drone.model.Medication;
-import org.drone.repository.DroneMedicationRepository;
 import org.drone.repository.DroneRepository;
 import org.drone.repository.MedicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
